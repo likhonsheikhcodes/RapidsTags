@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RapidTags - Advanced YouTube tag generator to optimize video SEO">
+    <meta name="keywords" content="RapidTags, YouTube tags, SEO tag generator, YouTube optimization">
+    <meta name="author" content="Likhon Sheikh">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="RapidTags | YouTube Tag Generator">
+    <meta property="og:description" content="Generate high-quality SEO tags for YouTube videos with RapidTags">
+    <meta property="og:image" content="https://rapidtags.io/assets/img/logo.png">
+    <meta property="og:url" content="https://rapidtags.io/generator">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <title>RapidTags | Advanced YouTube Tag Generator</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/tools-new.css?v=5">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #00796b;
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        button {
+            padding: 0.75rem 1.5rem;
+            background: #00796b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #004d40;
+        }
+
+        .tagbox {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: #c8e6c9;
+            color: #00796b;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-block;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #004d40;
+            color: white;
+        }
+
+        .notice {
+            color: #d32f2f;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .notice.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>RapidTags</h1>
+        <p>Generate SEO-friendly YouTube Tags</p>
+    </header>
+
+    <div class="container">
+        <form id="tagForm">
+            <div class="input-group">
+                <input type="text" id="titleInput" placeholder="Enter your video title" />
+                <button type="submit">Generate Tags</button>
+            </div>
+            <p class="notice" id="notice">Please enter a video title.</p>
+            <div class="tagbox" id="tagbox">
+                <!-- Generated tags will appear here -->
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>© 2025 RapidTags by Likhon Sheikh</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('tagForm');
+        const input = document.getElementById('titleInput');
+        const tagbox = document.getElementById('tagbox');
+        const notice = document.getElementById('notice');
+
+        function generateTags(title) {
+            const words = title.split(/\s+/).filter(word => word.length > 2);
+            const tags = new Set(words);
+
+            words.forEach((word, index) => {
+                if (index < words.length - 1) {
+                    tags.add(`${word} ${words[index + 1]}`);
+                }
+            });
+
+            tags.add(title);
+            return Array.from(tags);
+        }
+
+        function displayTags(tags) {
+            tagbox.innerHTML = tags
+                .map(tag => `<span class="tag">${tag}</span>`)
+                .join('');
+        }
+
+        form.addEventListener('submit', event => {
+            event.preventDefault();
+            const title = input.value.trim();
+
+            if (title) {
+                const tags = generateTags(title);
+                displayTags(tags);
+                notice.classList.remove('show');
+            } else {
+                notice.classList.add('show');
+            }
+        });
+    </script>
+</body>
+
+</html>
