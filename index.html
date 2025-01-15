@@ -13,6 +13,9 @@
     <meta property="og:image" content="https://rapidtags.io/assets/img/logo.png">
     <meta property="og:url" content="https://rapidtags.io/generator">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RapidTags | YouTube Tag Generator">
+    <meta name="twitter:description" content="Generate high-quality SEO tags for YouTube videos with RapidTags">
+    <meta name="twitter:image" content="https://rapidtags.io/assets/img/logo.png">
 
     <title>RapidTags | Advanced YouTube Tag Generator</title>
 
@@ -162,7 +165,7 @@
         const notice = document.getElementById('notice');
 
         function generateTags(title) {
-            const words = title.split(/\s+/).filter(word => word.length > 2);
+            const words = title.toLowerCase().split(/\s+/).filter(word => word.length > 2);
             const tags = new Set(words);
 
             words.forEach((word, index) => {
